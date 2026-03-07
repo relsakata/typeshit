@@ -23,7 +23,8 @@ oldreadfile = hookfunction(readfile, newcclosure(function(...)
 		if not ConfigTable["misc"]["bqdel2"] then ConfigTable["misc"]["bqdel2"] = true end
 		if not ConfigTable["toys"]["hiddenstickers"] then ConfigTable["toys"]["hiddenstickers"] = true end
 		if not ConfigTable["toys"]["discardstickers"] then ConfigTable["toys"]["discardstickers"] = true end
-		
+		writefile(HttpService:JSONEncode(ConfigTable))
+		reExecute=true
 		return HttpService:JSONEncode(ConfigTable)
 	end
 	return oldreadfile(...)
