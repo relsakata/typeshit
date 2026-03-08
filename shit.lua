@@ -1,14 +1,4 @@
-local file = file~=nil and file or "script" --script, test, rewrite
 local forceOn = forceOn~=nil and forceOn or {}
-
-local HttpService = game:GetService("HttpService")
-local autoload = `atlas-{game.Players.LocalPlayer.Name}.json`
-local configlocation = isfile(autoload) and `atlas/{autoload}` or `atlas/Preset 1.json`
-
-local succ, err = pcall(loadstring(game:HttpGet(`https://raw.githubusercontent.com/Chris12089/atlasbss/main/{file}.lua`)))
-if not succ then
-    game.Players.LocalPlayer:Kick(err)
-end
 
 function MergeTable(reference, atlas)
     for i, v in reference do
@@ -42,17 +32,14 @@ end
 
 task.spawn(function()
 	local tries=0
-    local lastRan = 0
-	while task.wait(1) do
-        if tick() - lastRan >= 30 then
-            for _, ConfigTable in filtergc("table", {Keys={"vars"}}, false) do
-                if ConfigTable~=forceOn and typeof(ConfigTable["vars"]) == "table" and checkConfigWrong(ConfigTable) then
-                    tries+=1
-                    ConfigTable["vars"]["remote"] = true
-                    ConfigTable["vars"]["digmethod"] = "Remote"
-                    for i, v in forceOn do
-                        MergeTable(forceOn, ConfigTable)
-                    end
+	while task.wait(10) do
+        for _, ConfigTable in filtergc("table", {Keys={"vars"}}, false) do
+            if ConfigTable~=forceOn and typeof(ConfigTable["vars"]) == "table" and ConfigTable["vars"]["remote"]~=true then
+                tries+=1
+                ConfigTable["vars"]["remote"] = true
+                ConfigTable["vars"]["digmethod"] = "Remote"
+                for i, v in forceOn do
+                    MergeTable(forceOn, ConfigTable)
                 end
             end
         end
