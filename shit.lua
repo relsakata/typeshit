@@ -1,15 +1,12 @@
 local file = "script" --script, test, rewrite
 local HttpService = game:GetService("HttpService")
-local configlocation = isfile(`atlas-{game.Players.LocalPlayer.Name}.json`) and `atlas/{readfile(`atlas-{game.Players.LocalPlayer.Name}.json`)}` or `atlas/Preset 1.json`
+local autoload = `atlas-{game.Players.LocalPlayer.Name}.json`
+local configlocation = isfile(autoload) and `atlas/{autoload}` or `atlas/Preset 1.json`
 
-local tries=0
-
-local succ, err = pcall(loadstring(game:HttpGet(`https://raw.githubusercontent.com/Chris12089/atlasbss/main/{file}.lua`)))
-if not succ then
-	game.Players.LocalPlayer:Kick("atlas error lmao")
-end
+xpcall(loadstring(game:HttpGet(`https://raw.githubusercontent.com/Chris12089/atlasbss/main/{file}.lua`)), game.Players.LocalPlayer.Kick, "atlas error")
 
 task.spawn(function()
+	local tries=0
 	while task.wait(1) do
         for i, ConfigTable in filtergc("table", {Keys={"vars"}}, false) do
             if ConfigTable then
