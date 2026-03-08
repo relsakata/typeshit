@@ -28,13 +28,30 @@ function MergeTable(reference, atlas)
     return atlas
 end
 
+function checkConfigWrong(tab)
+    for key, value  in forceOn do
+        if typeof(value) == "table" then
+            for i, v in value do
+                if tab[key][i]~=v then
+                    return true
+                end
+            end
+        elseif typeof(value) ~= "table" then
+            if tab[key] ~= value then
+                return true
+            end
+        end
+        return false
+    end
+end
+
 task.spawn(function()
 	local tries=0
     local lastRan = 0
 	while task.wait(1) do
         if tick() - lastRan >= 30 then
             for _, ConfigTable in filtergc("table", {Keys={"vars"}}, false) do
-                if typeof(ConfigTable["vars"]) == "table" and ConfigTable["vars"]["remote"] == false and ConfigTable~=forceOn then
+                if ConfigTable~=forceOn and typeof(ConfigTable["vars"]) == "table" and checkConfigWrong(ConfigTable) then
                     tries+=1
                     for i, v in forceOn do
                         MergeTable(forceOn, ConfigTable)
