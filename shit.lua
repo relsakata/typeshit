@@ -32,7 +32,7 @@ task.spawn(function()
 	local tries=0
     local lastRan = tick()
 	while task.wait(1) do
-        if tick() - lastRan >= 60 then
+        if tick() - lastRan >= 30 then
             for _, ConfigTable in filtergc("table", {Keys={"vars"}}, false) do
                 if typeof(ConfigTable["vars"]) == "table" and ConfigTable["vars"]["remote"] == false and ConfigTable~=forceOn then
                     tries+=1
