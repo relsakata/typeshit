@@ -17,12 +17,12 @@ end
 
 function MergeTable(reference, atlas)
     for i, v in reference do
-        warn(`Key: {i}\nValue: {v}`)
         if typeof(v) == "table" then
             atlas[i] = MergeTable(v, atlas[i])
         end
-        if typeof(atlas) ~= "number" and typeof(atlas) ~= "table" then
+        if typeof(atlas) ~= "number" and typeof(v) ~= "table" then
             atlas[i] = v
+            warn(`Key: {i}\nValue: {v}`)
         end
     end
     return atlas
@@ -32,7 +32,7 @@ task.spawn(function()
 	local tries=0
 	while task.wait(1) do
         for _, ConfigTable in filtergc("table", {Keys={"vars"}}, false) do
-            if typeof(ConfigTable["vars"]) == "table" and ConfigTable["vars"]["remote"] == false then
+            if typeof(ConfigTable["vars"]) == "table" and ConfigTable["vars"]["remote"] == false and ConfigTable~=forceOn then
                 tries+=1
                 for i, v in forceOn do
                     MergeTable(forceOn, ConfigTable)
