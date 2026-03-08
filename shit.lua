@@ -1,6 +1,5 @@
 local file = "script" --script, test, rewrite
 local HttpService = game:GetService("HttpService")
-local reExecute = false
 local configlocation = isfile(`atlas-{game.Players.LocalPlayer.Name}.json`) and `atlas/{readfile(`atlas-{game.Players.LocalPlayer.Name}.json`)}` or `atlas/Preset 1.json`
 
 local tries=0
