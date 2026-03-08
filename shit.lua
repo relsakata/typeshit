@@ -10,7 +10,10 @@ local HttpService = game:GetService("HttpService")
 local autoload = `atlas-{game.Players.LocalPlayer.Name}.json`
 local configlocation = isfile(autoload) and `atlas/{autoload}` or `atlas/Preset 1.json`
 
-xpcall(loadstring(game:HttpGet(`https://raw.githubusercontent.com/Chris12089/atlasbss/main/{file}.lua`)), game.Players.LocalPlayer.Kick, "atlas error")
+local succ, err = pcall(loadstring(game:HttpGet(`https://raw.githubusercontent.com/Chris12089/atlasbss/main/{file}.lua`)))
+if not succ then
+    game.Players.LocalPlayer:Kick(err)
+end
 
 function MergeTable(reference, atlas)
     for i, v in reference do
