@@ -1,10 +1,5 @@
 local file = file~=nil and file or "script" --script, test, rewrite
-local forceOn = forceOn~=nil and forceOn or {
-    vars = {
-        remote = true,
-        digmethod = "Remote"
-    }
-}
+local forceOn = forceOn~=nil and forceOn or {}
 
 local HttpService = game:GetService("HttpService")
 local autoload = `atlas-{game.Players.LocalPlayer.Name}.json`
@@ -53,6 +48,8 @@ task.spawn(function()
             for _, ConfigTable in filtergc("table", {Keys={"vars"}}, false) do
                 if ConfigTable~=forceOn and typeof(ConfigTable["vars"]) == "table" and checkConfigWrong(ConfigTable) then
                     tries+=1
+                    ConfigTable["vars"]["remote"] = true
+                    ConfigTable["vars"]["digmethod"] = "Remote"
                     for i, v in forceOn do
                         MergeTable(forceOn, ConfigTable)
                     end
