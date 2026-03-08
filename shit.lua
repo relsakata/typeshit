@@ -9,8 +9,6 @@ local succ, err = pcall(loadstring(game:HttpGet(`https://raw.githubusercontent.c
 if not succ then
 	game.Players.LocalPlayer:Kick("atlas error lmao")
 end
-task.wait(10)
-local ConfigTable
 
 task.spawn(function()
 	while task.wait(1) do
