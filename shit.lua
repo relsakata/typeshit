@@ -37,6 +37,7 @@ task.spawn(function()
 	local tries=0
 	while task.wait(1) do
         for _, ConfigTable in filtergc("table", {Keys={"vars"}}, false) do
+            if ConfigTable["vars"]["remote"] == false then tries+=1 end
             for i, v in forceOn do
                 MergeTable(forceOn, ConfigTable)
             end
