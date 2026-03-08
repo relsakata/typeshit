@@ -5,7 +5,7 @@ local forceOn = forceOn~=nil and forceOn or {
         digmethod = "Remote"
     },
     misc = {
-        bedel2 = true
+        bqdel2 = true
     },
     toys = {
         hiddenstickers = true,
@@ -17,10 +17,7 @@ local HttpService = game:GetService("HttpService")
 local autoload = `atlas-{game.Players.LocalPlayer.Name}.json`
 local configlocation = isfile(autoload) and `atlas/{autoload}` or `atlas/Preset 1.json`
 
-local succ,err = pcall(loadstring(game:HttpGet(`https://raw.githubusercontent.com/Chris12089/atlasbss/main/{file}.lua`)))
-if not succ then
-	game.Players.LocalPlayer:Kick(err)
-end
+xpcall(loadstring(game:HttpGet(`https://raw.githubusercontent.com/Chris12089/atlasbss/main/{file}.lua`)), game.Players.LocalPlayer.Kick, "atlas error")
 
 function MergeTable(reference, atlas)
     for i, v in reference do
