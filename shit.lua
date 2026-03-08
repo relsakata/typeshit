@@ -21,7 +21,7 @@ function MergeTable(reference, atlas)
         if typeof(v) == "table" then
             atlas[i] = MergeTable(v, atlas[i])
         end
-        if typeof(atlas) ~= "number" then
+        if typeof(atlas) ~= "number" and typeof(atlas) ~= "table" then
             atlas[i] = v
         end
     end
