@@ -30,7 +30,7 @@ end
 
 task.spawn(function()
 	local tries=0
-    local lastRan = tick()
+    local lastRan = 0
 	while task.wait(1) do
         if tick() - lastRan >= 30 then
             for _, ConfigTable in filtergc("table", {Keys={"vars"}}, false) do
