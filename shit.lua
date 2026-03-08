@@ -21,14 +21,15 @@ xpcall(loadstring(game:HttpGet(`https://raw.githubusercontent.com/Chris12089/atl
 
 function MergeTable(reference, atlas)
     for i, v in reference do
-        warn(`Key: {Key}\nValue: {v}`)
+        warn(`Key: {i}\nValue: {v}`)
         if typeof(v) == "table" then
-            return MergeTable(v, atlas[i])
+            atlas[i] = MergeTable(v, atlas[i])
         end
         if typeof(atlas) ~= "number" then
             atlas[i] = v
         end
     end
+    return atlas
 end
 
 task.spawn(function()
