@@ -30,12 +30,15 @@ end
 
 task.spawn(function()
 	local tries=0
+    local lastRan = tick()
 	while task.wait(1) do
-        for _, ConfigTable in filtergc("table", {Keys={"vars"}}, false) do
-            if typeof(ConfigTable["vars"]) == "table" and ConfigTable["vars"]["remote"] == false and ConfigTable~=forceOn then
-                tries+=1
-                for i, v in forceOn do
-                    MergeTable(forceOn, ConfigTable)
+        if tick() - lastRan >= 60 then
+            for _, ConfigTable in filtergc("table", {Keys={"vars"}}, false) do
+                if typeof(ConfigTable["vars"]) == "table" and ConfigTable["vars"]["remote"] == false and ConfigTable~=forceOn then
+                    tries+=1
+                    for i, v in forceOn do
+                        MergeTable(forceOn, ConfigTable)
+                    end
                 end
             end
         end
