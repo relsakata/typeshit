@@ -3,13 +3,6 @@ local forceOn = forceOn~=nil and forceOn or {
     vars = {
         remote = true,
         digmethod = "Remote"
-    },
-    misc = {
-        bqdel2 = true
-    },
-    toys = {
-        hiddenstickers = true,
-        discardstickers = true
     }
 }
 
